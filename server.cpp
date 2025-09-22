@@ -3,8 +3,10 @@
 #include <netinet/in.h>
 #include <netinet/ip.h> 
 #include <stdlib.h>  // for exit
+#include <stdio.h> // For perror
 
-static void die(){
+static void die(const char *msg){
+    perror(msg); // prints error
     exit(1);
 }
 
@@ -23,7 +25,7 @@ int main() {
     if (rv) { die("bind()"); } // If bind returns anything other than 0 then it failed
         
     // listen
-    rv = listen(fd, SOMAXCONN);
+    rv = listen(tcp_socket_fd, SOMAXCONN);
     if (rv) { die("listen()"); }
     // #left off at https://build-your-own.org/redis/03_hello_cs step 3
 
